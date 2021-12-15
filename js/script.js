@@ -14,7 +14,7 @@ const render = function () {
 
   todoCompleted.innerHTML = '';
 
-  toDoData.forEach(function (item, i) {
+  toDoData.forEach(function (item) {
     const li = document.createElement('li');
     li.classList.add('todo-item');
     li.innerHTML =
@@ -40,7 +40,7 @@ const render = function () {
 
     const btnTodoRemove = li.querySelector('.todo-remove').addEventListener('click', function () {
       li.remove();
-      toDoData.splice(i, 1);
+      toDoData.splice(item, 1);
       render();
       addToStorage();
     });
@@ -69,9 +69,9 @@ const addToStorage = function () {
   localStorage.setItem('todo', JSON.stringify(toDoData));
 };
 
-function test() {
+const checkStorage = function () {
   if (localStorage.getItem('todo') !== null) {
     toDoData = JSON.parse(localStorage.getItem('todo'));
     render();
   }
-}
+};
