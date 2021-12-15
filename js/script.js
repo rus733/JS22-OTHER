@@ -71,10 +71,12 @@ const addToStorage = function () {
   localStorage.clear();
   localStorage.setItem('todo', JSON.stringify(toDoData));
 };
-
+//
 const data = JSON.parse(localStorage.getItem('todo'));
 toDoData.push(data);
 console.log(toDoData);
+
+// проверка  локального хранилища и занесение данных в массив
 
 const checkStorage = function () {
   if (data !== null) {
