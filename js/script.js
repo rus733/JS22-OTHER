@@ -50,17 +50,20 @@ const render = function () {
 todoControl.addEventListener('submit', function (event) {
   event.preventDefault();
 
-  const newToDo = {
-    text: headerInput.value,
-    completed: false,
-  };
+  if (headerInput.value.trim() !== '') {
+    const newToDo = {
+      text: headerInput.value,
+      completed: false,
+    };
 
-  toDoData.push(newToDo);
+    toDoData.push(newToDo);
 
-  headerInput.value = '';
+    headerInput.value = '';
 
-  render();
-
+    render();
+  } else {
+    alert('заполните поле ввода');
+  }
   addToStorage();
 });
 
@@ -69,9 +72,15 @@ const addToStorage = function () {
   localStorage.setItem('todo', JSON.stringify(toDoData));
 };
 
+const data = JSON.parse(localStorage.getItem('todo'));
+toDoData.push(data);
+console.log(toDoData);
+
 const checkStorage = function () {
-  if (localStorage.getItem('todo') !== null) {
-    toDoData = JSON.parse(localStorage.getItem('todo'));
+  if (data !== null) {
+    toDoData.push(data);
+    //toDoData = JSON.parse(localStorage.getItem('todo'));
+    console.log(toDoData);
     render();
   }
 };
