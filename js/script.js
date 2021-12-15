@@ -11,9 +11,7 @@ let toDoData = [];
 
 const render = function () {
   todoList.innerHTML = '';
-
   todoCompleted.innerHTML = '';
-
   toDoData.forEach(function (item) {
     const li = document.createElement('li');
     li.classList.add('todo-item');
@@ -37,7 +35,7 @@ const render = function () {
       render();
       addToStorage();
     });
-
+    // кнопка удаления  задач
     const btnTodoRemove = li.querySelector('.todo-remove').addEventListener('click', function () {
       li.remove();
       toDoData.splice(item, 1);
@@ -55,34 +53,25 @@ todoControl.addEventListener('submit', function (event) {
       text: headerInput.value,
       completed: false,
     };
-
     toDoData.push(newToDo);
-
     headerInput.value = '';
-
     render();
   } else {
-    alert('заполните поле ввода');
+    alert('заполните поле ввода задачи');
   }
   addToStorage();
 });
 
+//функция добавления данных в локальное хранилище
 const addToStorage = function () {
   localStorage.clear();
   localStorage.setItem('todo', JSON.stringify(toDoData));
 };
-//
-const data = JSON.parse(localStorage.getItem('todo'));
-toDoData.push(data);
-console.log(toDoData);
 
 // проверка  локального хранилища и занесение данных в массив
 
-const checkStorage = function () {
-  if (data !== null) {
-    toDoData.push(data);
-    //toDoData = JSON.parse(localStorage.getItem('todo'));
-    console.log(toDoData);
-    render();
-  }
-};
+if (JSON.parse(localStorage.getItem('todo')) !== null) {
+  toDoData = JSON.parse(localStorage.getItem('todo'));
+  console.log(toDoData);
+  render();
+}
