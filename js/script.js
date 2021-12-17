@@ -35,10 +35,8 @@ const render = function () {
       render();
       addToStorage();
     });
-    // кнопка удаления  задач
+    // удалениe  задач
     li.querySelector('.todo-remove').addEventListener('click', function () {
-      //li.remove();
-      console.log(item);
       toDoData.splice(index, 1);
       render();
       addToStorage();
