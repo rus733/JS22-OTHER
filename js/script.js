@@ -12,7 +12,7 @@ let toDoData = [];
 const render = function () {
   todoList.innerHTML = '';
   todoCompleted.innerHTML = '';
-  toDoData.forEach(function (item) {
+  toDoData.forEach(function (item, index) {
     const li = document.createElement('li');
     li.classList.add('todo-item');
     li.innerHTML =
@@ -36,9 +36,10 @@ const render = function () {
       addToStorage();
     });
     // кнопка удаления  задач
-    const btnTodoRemove = li.querySelector('.todo-remove').addEventListener('click', function () {
-      li.remove();
-      toDoData.splice(item, 1);
+    li.querySelector('.todo-remove').addEventListener('click', function () {
+      //li.remove();
+      console.log(item);
+      toDoData.splice(index, 1);
       render();
       addToStorage();
     });
@@ -58,6 +59,7 @@ todoControl.addEventListener('submit', function (event) {
     render();
   } else {
     alert('заполните поле ввода задачи');
+    headerInput.value = '';
   }
   addToStorage();
 });
@@ -72,6 +74,5 @@ const addToStorage = function () {
 
 if (JSON.parse(localStorage.getItem('todo')) !== null) {
   toDoData = JSON.parse(localStorage.getItem('todo'));
-  console.log(toDoData);
   render();
 }
